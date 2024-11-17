@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus-app
+  namespace: tooling
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nexus-app
+  template:
+    metadata:
+      labels:
+        app: nexus-app
+    spec:
+      containers:
+        - name: nexus-app
+          image: 416591745024.dkr.ecr.eu-west-2.amazonaws.com/global-tooling/nexus-app
+          resources:
+            limits:
+              memory: "300Mi"
+              cpu: "100m"
+          ports:
+            - containerPort: 8081
+      imagePullSecrets:
+        - name: nexus-app-secret
